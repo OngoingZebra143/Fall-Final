@@ -17,7 +17,7 @@ public class Zombie : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixUpdate()
+    void FixedUpdate()
     {
         Vector3 lookDirection = (_player.transform.position - transform.position).normalized;
         _zombieRb.AddForce(lookDirection * speed);
