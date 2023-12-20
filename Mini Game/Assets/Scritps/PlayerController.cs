@@ -18,22 +18,28 @@ public class PlayerController : MonoBehaviour
 
     private AudioSource _playerAudio;
 
+    private SpawnManager _spawnManager;
+
     // Start is called before the first frame update
     void Start()
     {
         _playerRb = GetComponent<Rigidbody>();
         _playerAudio = GetComponent<AudioSource>();
+        _spawnManager = GameObject.Find("Spawn Manager").GetComponent<SpawnManager>();
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        _horizontalInput = Input.GetAxis("Horizontal");
-        _forwardInput = Input.GetAxis("Vertical");
+        if(_spawnManager.isGameActive)
+        {
+            _horizontalInput = Input.GetAxis("Horizontal");
+            _forwardInput = Input.GetAxis("Vertical");
 
-        Vector3 lookDirection = new Vector3(_horizontalInput, 0f, _forwardInput);
+            Vector3 lookDirection = new Vector3(_horizontalInput, 0f, _forwardInput);
 
-        _playerRb.AddForce(lookDirection * speed);
+            _playerRb.AddForce(lookDirection * speed);
+        }
     }
 
     private void OnTriggerEnter(Collider other)

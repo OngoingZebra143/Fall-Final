@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
+    public bool isGameActive = false;
     public float areaRange = 20f;
     public int coinAmount = 10;
     public GameObject collectibleObject;
@@ -13,14 +14,20 @@ public class SpawnManager : MonoBehaviour
     void Start()
     {
         //SpawnRandomEnemy();
-        StartCoroutine(CreateRandomAmountOfEnemies());
+        //StartCoroutine(CreateRandomAmountOfEnemies());
         SpawnCollectibleObject();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void StartSpawner()
     {
-        
+        isGameActive = true;
+        StartCoroutine(CreateRandomAmountOfEnemies());
+    }
+
+
+    public void StopSpawner()
+    {
+        isGameActive = false;
     }
 
     void SpawnRandomEnemy()
@@ -49,7 +56,7 @@ public class SpawnManager : MonoBehaviour
 
     IEnumerator CreateRandomAmountOfEnemies()
     {
-        while (true)
+        while (isGameActive)
         {
 
             int amountOfTime = Random.Range(1, 8);
